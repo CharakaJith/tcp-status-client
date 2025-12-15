@@ -1,5 +1,6 @@
 using System.Net.Sockets;
 using System.Text;
+using TcpStatusClient.Device;
 using TcpStatusClient.Protocol;
 
 namespace TcpStatusClient
@@ -113,6 +114,32 @@ namespace TcpStatusClient
 
                 _ = Task.Run(SimulateHardwareProcessingAsync);
             }
+            else
+            {
+                await SendAsync(ProtocolMessages.Error);
+            }
+        }
+
+        /// <summary>
+        /// simulate hardware processing for STATUS request
+        /// waits 3 seconds to simulate real device delay
+        /// reads the current button status and sends the status reply to server
+        /// mark client as ready for next command
+        /// </summary>
+        /// <returns></returns>
+        private async Task SimulateHardwareProcessingAsync()
+        {
+            // simulate processing time (3s)
+            await Task.Delay(3000); 
+
+            // get simulated hardware buttons
+            var status = ButtonStatusProvider.GetStatus();
+
+            // send status to server
+            await SendAsync($"{ProtocolMessages.StatusReply}|{status}");
+            
+            // ready for next command
+            _isBusy = false;
         }
 
         /// <summary>
@@ -131,12 +158,6 @@ namespace TcpStatusClient
             {
                 Console.WriteLine($"Send error: {ex.Message}");
             }
-        }
-
-        private async Task SimulateHardwareProcessingAsync()
-        {
-            // simulate processing time (3s)
-            await Task.Delay(3000); 
-        }
+        }        
     }
 }
