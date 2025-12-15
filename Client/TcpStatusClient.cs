@@ -51,6 +51,9 @@ namespace TcpStatusClient
 
                 Console.WriteLine($"{Name} connected to the server");
 
+                // send client name to server
+                await SendAsync($"{ProtocolMessages.Name}|{Name}");
+
                 // start listnening to server
                 await ListenAsync();
             }
