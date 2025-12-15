@@ -72,8 +72,13 @@
 
 ### References
 
-- [.NET TCP/IP Networking Concepts](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/sockets/tcp-classes)
+- [DotNET TCP/IP Networking Concepts](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/sockets/tcp-classes)
 - [Simple TCP Server and Client](https://www.aicodesnippet.com/c-sharp/networking/simple-tcp-server-and-client-with-tcplistener-and-tcpclient.html)
+
+### Documentations
+
+- [Application Document](./public/docs/Documentation.pdf)
+- [Assignment](./public/docs/Assignment.pdf)
 
 ## Contact
 
