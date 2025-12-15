@@ -19,15 +19,18 @@ namespace TcpStatusClient
 
         private bool _isBusy;
 
+        public string Name { get; set; }
+
         /// <summary>
         /// initialize a new client
         /// </summary>
         /// <param name="ip">server ip address</param>
         /// <param name="port">server port</param>
-        public StatusClient(string ip, int port)
+        public StatusClient(string ip, int port, string name)
         {
             _ipAddress = ip;
             _port = port;
+            Name = name;
         }
 
         /// <summary>
@@ -46,14 +49,14 @@ namespace TcpStatusClient
                 await _client.ConnectAsync(_ipAddress, _port);
                 _stream = _client.GetStream();
 
-                Console.WriteLine("Server connected");
+                Console.WriteLine($"{Name} connected to the server");
 
                 // start listnening to server
                 await ListenAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Connection failed: {ex.Message}");
+                Console.WriteLine($"{Name} connection failed: {ex.Message}");
             }
         }
 
